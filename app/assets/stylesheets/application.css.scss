@@ -16,3 +16,85 @@
 
  @import 'bootstrap-sprockets';
  @import 'bootstrap';
+
+ // global variables
+ $transitions: .4s ease;
+
+ body {
+ 	background-color: #000;
+ 	color: #fff;
+ }
+
+ h1,h2,h3,h4,h5,h6 {
+ 	font-family: 'Roboto', sans-serif;
+ }
+
+ a {
+ 	&:hover {
+ 		color: #ed4136;
+ 	}
+ }
+
+ .navbar-default {
+ 	border-radius: 0;
+ 	background-color: #000;
+ 	border: 1px solid #000;
+ 	.navbar-brand {
+    	color: #fff;
+    	transition: $transitions;
+    	&:hover {
+    		color: #ed4136;
+    	
+    	}
+	}
+	.navbar-nav > li > a {
+		color: #fff;
+		transition: $transitions;
+		&:hover {
+    		color: #ed4136;
+    	}
+	}
+ }
+
+ .form-group {
+ 	width: 70%;
+ 	margin: 0 auto;
+ 	padding-bottom: 25px;
+ 	input {
+ 		width: 100%;
+ 		height: 40px;
+ 		padding: 5px;
+ 		font-size: 1.2em;
+ 		border-radius: 5px;
+ 		border: 1px solid #fff; 
+ 		background: url(/assets/magnifying-glass.png);
+ 		background-repeat: no-repeat;
+ 		background-position: 770px 10px;
+ 		cursor: pointer;
+ 	}
+ }
+
+span.stars {
+	font-size: 1.5em;
+}
+
+span.logo img {
+	width: 4%;
+}
+
+
+.panel {
+	background-color: transparent;
+}
+
+.panel-default {
+	border-color: #fff;
+	.panel-heading {
+		background-color: transparent;
+		color: #fff;
+	}
+}
+
+
+
+
