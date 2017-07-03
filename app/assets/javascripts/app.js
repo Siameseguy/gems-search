@@ -6,53 +6,72 @@ $(document).ready(function(){
 		evt.preventDefault();
 
   		const searchVal = $('#searchInput').val().toLowerCase();
-
   		const rubyGems = 'https://rubygems.org/api/v1/gems/' + searchVal + '.json';  
 
   		function getGems(data) {
- 	$.each(data, function(index,gem) {	
- 	let gemName = '<div class="panel panel-default">';
- 	gemName += '<div class="panel-heading"><h3 class="panel-title">Gem</h3></div>';
- 	gemName += '<div class="panel-body">' +
- 	'<a href="' + data.project_uri + '"' + 'target="_blank">' + data.name + '</a>' +
- 	'<span class="stars pull-right"><i class="fa fa-star-o" aria-hidden="true"></i></span>' +
- 	'</div>';
- 	gemName += '</div>';
+ 			$.each(data, function(index,gem) {	
+ 				let gemName = '<div class="panel panel-default">';
+ 					gemName += '<div class="panel-heading"><h3 class="panel-title">Gem</h3></div>';
+ 					gemName += '<div class="panel-body">' +
+ 							'<a href="' + data.project_uri + '"' + 'target="_blank">' + data.name + '</a>' +
+ 							'<span class="stars pull-right"><i class="fa fa-star-o" aria-hidden="true"></i></span>' +
+ 							'</div>';
+ 					gemName += '</div>';
 
- 	gemName += '<div class="panel panel-default">';
- 	gemName += '<div class="panel-heading"><h3 class="panel-title">Info</h3></div>';
- 	gemName += '<div class="panel-body">' +
- 	data.info +
- 	'</div>';
- 	gemName += '</div>';
+ 					gemName += '<div class="panel panel-default">';
+ 					gemName += '<div class="panel-heading"><h3 class="panel-title">Info</h3></div>';
+ 					gemName += '<div class="panel-body">' + data.info + '</div>';
+ 					gemName += '</div>';
 
- 	gemName += '<div class="panel panel-default">';
- 	gemName += '<div class="panel-heading"><h3 class="panel-title">Dependencies</h3></div>';
- 	gemName += '<div class="panel-body"><ul class="list-unstyled">';
-                   $.each(data.dependencies.runtime, function(i, dep){
-                        gemName += '<li><a href="https://rubygems.org/gems/' + dep.name + '" target="_blank">' + dep.name + '</a>' + 
- 						'<span class="stars pull-right">' + 
- 							'<i class="fa fa-star-o" aria-hidden="true"></i>' + 
- 						'</span>' + 
- 						'</li>';
-                   });
-                   gemName += '</ul>' + 
- 	'</div>';
- 	gemName += '</div>';
+ 					gemName += '<div class="panel panel-default">';
+ 					gemName += '<div class="panel-heading"><h3 class="panel-title">Dependencies</h3></div>';
+ 					gemName += '<div class="panel-body"><ul class="list-unstyled">';
+                   				$.each(data.dependencies.runtime, function(i, dep){
+                        			gemName += '<li><a href="https://rubygems.org/gems/' + dep.name + '"target="_blank" id="depName">' + dep.name + '</a>' + 
+ 									'<span class="stars pull-right"><i class="fa fa-star-o" aria-hidden="true"></i></span></li>';						
+                   				});
+                   	gemName += '</ul>' + '</div>';
+ 					gemName += '</div>';
 
-  $('#searchResults').html(gemName);
+  					$('#searchResults').html(gemName);
 
 
- 	$('.stars').click(function(evt){
- 	const favoritesArray = [];
-  favoritesArray.push(data.name);
- 	console.log(favoritesArray);
+  					// ------ FAVORITES FEATURE ------ //
 
- 	$('#favorites').html('hello world');
- 	});
-     }); // end each
-   	}
+  					// toggle star
+  					let saved = false;
+  					$('.stars').on('click', function(){
+  						saved = !saved;
+  						if(saved) {
+  							$(this).html('<i class="fa fa-star" aria-hidden="true"></i>');
+  						} else {
+  							$(this).html('<i class="fa fa-star-o" aria-hidden="true"></i>');
+  						}
 
+  						// get gem name
+  						let newVal = $('#depName').html();
+  						const favsArray = [];
+  						favsArray.push(newVal);
+  						//console.log(favsArray);
+
+  						// store new array in local storage
+  				// 		if (typeof(Storage) !== "undefined") {
+						//    localStorage.setItem("lastname", "Smith");
+						//    let listFavs = '<ul><li>' + "lastname" + '</li></ul>';
+						//    $('#favorites').html(listFavs);
+						// } else {
+						//     // Sorry! No Web Storage support..
+						//     console.log('doesn\'t work');	
+						// }
+  					});
+
+  							
+
+
+
+
+    	 	}); // end each
+   		}
 
     	$.getJSON(rubyGems, getGems).fail(function(){
     		if(searchVal === "") {
@@ -60,7 +79,18 @@ $(document).ready(function(){
     		} else {
     			$('#searchResults').html('<h3 class="text-center">Oh snap! Couldn\'t find that gem. Please try again.</h3><br><p class="text-center"><img src="https://media.giphy.com/media/26AHLBZUC1n53ozi8/giphy.gif"></p>');
     		}
-    		
     	});
+
+
+
+
+
+
+
+
+
   	}); // end click
+
+
+
 });
