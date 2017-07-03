@@ -105,7 +105,9 @@ $(document).ready(function(){
                     $(this).data("state",false);
                     favsArray = favsArray.filter(item => item !== $(this).data("name"))
                     $(this).html('<i class="fa fa-star-o" aria-hidden="true"></i>');
-                    $(this).remove('li');
+                    $('li').on('click', function(){
+                        $(this).remove();
+                    });
                 }
 
                 // store new array in local storage
