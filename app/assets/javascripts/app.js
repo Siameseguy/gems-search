@@ -40,18 +40,21 @@ $(document).ready(function(){
 
   					// toggle star
   					let saved = false;
+  					const favsArray = [];
   					$('.stars').on('click', function(){
   						saved = !saved;
   						if(saved) {
   							$(this).html('<i class="fa fa-star" aria-hidden="true"></i>');
+  							// get gem name
+  							let newVal = $('#gemName').html();
+  							favsArray.push(newVal);
+  							//console.log(favsArray);
   						} else {
   							$(this).html('<i class="fa fa-star-o" aria-hidden="true"></i>');
   						}
 
-  						// get gem name
-  						let newVal = $('#gemName').html();
-  						const favsArray = [];
-  						favsArray.push(newVal);
+  						
+  					
   						//console.log(favsArray);
 
   						// store new array in local storage
@@ -59,7 +62,10 @@ $(document).ready(function(){
 						   localStorage.setItem("favsArray", JSON.stringify(favsArray));
 						   let storedGems = JSON.parse(localStorage.getItem("favsArray"));
 						   console.log(storedGems);
-						   let listFavs = '<ul class="list-unstyled"><li>' + storedGems + '</li></ul>';
+						   let listFavs = '<ul class="list-unstyled"><li>' + $.each(listFavs, function(index, gem){
+						   		listFavs += '<li>' + gem + '</li>';
+						   });
+						   listFavs += '</ul>';
 						   $('#favorites').html(listFavs);
 						} else {
 						    // Sorry! No Web Storage support..
