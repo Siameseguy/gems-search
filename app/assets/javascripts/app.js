@@ -86,18 +86,13 @@ $(document).ready(function(){
                 listFavs += '<div class="panel-body"><ul class="list-unstyled">';
                                 $.each(storedGems, function(index, gem){
                                     listFavs += '<li><a href="https://rubygems.org/gems/' + gem + '">' + gem + '</a>' +
-                                    '<span data-name="' + gem + '" data-state="false" class="stars pull-right"><i class="fa fa-star-o" aria-hidden="true"></i></span></li>'; 
+                                    '<span data-name="' + gem + '" data-state="true" class="stars pull-right"><i class="fa fa-star" aria-hidden="true"></i></span></li>'; 
                                 });          
                 listFavs += '</ul></div>';
                 listFavs += '</div>'
 
-                $('.stars').on('click', function(){
-                    alert('hello');
-                });
 
             $('#favorites').html(listFavs);
-            break;
-
             // toggle star
             let favsArray = [];
             $('.stars').on('click', function(){
@@ -110,6 +105,7 @@ $(document).ready(function(){
                     $(this).data("state",false);
                     favsArray = favsArray.filter(item => item !== $(this).data("name"))
                     $(this).html('<i class="fa fa-star-o" aria-hidden="true"></i>');
+                    $(this).remove('li');
                 }
 
                 // store new array in local storage
@@ -122,5 +118,6 @@ $(document).ready(function(){
                     console.log('doesn\'t work'); 
                 } 
             });
+            break;
     }
 });
