@@ -13,7 +13,7 @@ $(document).ready(function(){
  				let gemName = '<div class="panel panel-default">';
  					gemName += '<div class="panel-heading"><h3 class="panel-title">Gem</h3></div>';
  					gemName += '<div class="panel-body">' +
- 							'<a href="' + data.project_uri + '"' + 'target="_blank">' + data.name + '</a>' +
+ 							'<a href="' + data.project_uri + '"' + 'target="_blank" id="gemName">' + data.name + '</a>' +
  							'<span class="stars pull-right"><i class="fa fa-star-o" aria-hidden="true"></i></span>' +
  							'</div>';
  					gemName += '</div>';
@@ -49,25 +49,24 @@ $(document).ready(function(){
   						}
 
   						// get gem name
-  						let newVal = $('#depName').html();
+  						let newVal = $('#gemName').html();
   						const favsArray = [];
   						favsArray.push(newVal);
   						//console.log(favsArray);
 
   						// store new array in local storage
-  				// 		if (typeof(Storage) !== "undefined") {
-						//    localStorage.setItem("lastname", "Smith");
-						//    let listFavs = '<ul><li>' + "lastname" + '</li></ul>';
-						//    $('#favorites').html(listFavs);
-						// } else {
-						//     // Sorry! No Web Storage support..
-						//     console.log('doesn\'t work');	
-						// }
+  						if (typeof(Storage) !== "undefined") {
+						   localStorage.setItem("favsArray", JSON.stringify(favsArray));
+						   let storedGems = JSON.parse(localStorage.getItem("favsArray"));
+						   console.log(storedGems);
+						   let listFavs = '<ul class="list-unstyled"><li>' + storedGems + '</li></ul>';
+						   $('#favorites').html(listFavs);
+						} else {
+						    // Sorry! No Web Storage support..
+						    console.log('doesn\'t work');	
+						}	
+  						
   					});
-
-  							
-
-
 
 
     	 	}); // end each
@@ -80,17 +79,5 @@ $(document).ready(function(){
     			$('#searchResults').html('<h3 class="text-center">Oh snap! Couldn\'t find that gem. Please try again.</h3><br><p class="text-center"><img src="https://media.giphy.com/media/26AHLBZUC1n53ozi8/giphy.gif"></p>');
     		}
     	});
-
-
-
-
-
-
-
-
-
   	}); // end click
-
-
-
 });
